@@ -22,7 +22,10 @@ public class WeatherForecastController : ControllerBase
     [HttpGet(Name = "GetWeatherForecast")]
     public IEnumerable<WeatherForecast> Get()
     {
-        BackgroundJob.Enqueue(() => SendMessage("amaalselim@gmail.com"));
+        //BackgroundJob.Enqueue(() => SendMessage("amaalselim@gmail.com"));
+        Console.WriteLine(DateTime.Now);
+        BackgroundJob.Schedule(() => SendMessage("amaalselim@gmail.com"), TimeSpan.FromMinutes(1));
+
 
         return Enumerable.Range(1, 5).Select(index => new WeatherForecast
         {
@@ -35,6 +38,6 @@ public class WeatherForecastController : ControllerBase
     [ApiExplorerSettings(IgnoreApi = true)]
     public void SendMessage(string email)
     {
-        Console.WriteLine("Email Sent");
+        Console.WriteLine($"Email Sent at {DateTime.Now}");
     }
 }
