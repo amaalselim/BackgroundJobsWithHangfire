@@ -23,9 +23,10 @@ public class WeatherForecastController : ControllerBase
     public IEnumerable<WeatherForecast> Get()
     {
         //BackgroundJob.Enqueue(() => SendMessage("amaalselim@gmail.com"));
-        Console.WriteLine(DateTime.Now);
-        BackgroundJob.Schedule(() => SendMessage("amaalselim@gmail.com"), TimeSpan.FromMinutes(1));
+        //Console.WriteLine(DateTime.Now);
+        //BackgroundJob.Schedule(() => SendMessage("amaalselim@gmail.com"), TimeSpan.FromMinutes(1));
 
+        RecurringJob.AddOrUpdate(() => SendMessage("amaalselim@gmail.com"), Cron.Minutely);
 
         return Enumerable.Range(1, 5).Select(index => new WeatherForecast
         {
